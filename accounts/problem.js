@@ -1,6 +1,5 @@
 // Write a programme to impact the balances of the given accounts, based on their transactions.
 // Print the final balance for all the accounts with account number, name and balance amount.
-// hi, I am apoorv and I'm solving this.
 /* Input */
 const accounts = [
   {
@@ -56,13 +55,37 @@ const transactions = [
     'amount': 200,
   },
 ];
+function processTransaction(eachTransaction){
+  let type = eachTransaction['type'];
+  let amount = eachTransaction['amount'];
+  let accountNo = eachTransaction['accountNo'];
+  let balance = balances[accountNo];
+  if(type === 'withdrawal'){
+    balances[accountNo] = balance - amount;
+  }
+  else{
+    balances[accountNo] = balance + amount;
+  }
+  
 
+}
 var updateBalancesWithTransactions = function() {
 	// Implement transaction code here.
+    transactions.map(processTransaction);
+
 };
+function accountsBalance(account) {
+  let name = account['name'];
+  let accountNo = account['accountNo'];
+  let balance = balances[accountNo];
+
+  console.log(accountNo, name, balance);
+}
 
 var displayBalances = function() {
 	// Implement display code here.
+    accounts.map(accountsBalance);
+
 };
 
 
