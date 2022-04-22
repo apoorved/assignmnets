@@ -10,7 +10,7 @@ const class_Ten =[{"roll_no":1 ,"telugu":50,"hindi":55,"english":78,"maths":49,"
 {"roll_no":10 ,"telugu":70,"hindi":35,"english":30,"maths":49,"science":95,"social":70},
 ];
 
-const percentage_class = (student)=>{
+const calcPercentageClass = (student)=>{
     total = (student.telugu+student.hindi+student.english+student.maths+student.science+student.social);
     student.percent = (total/6).toFixed(2);
     student.classAwarded = student.percent >= 90 ? "Distinction" : student.percent >= 70 ? "First Class" : student.percent >= 60 ? "Second Class" : student.percent >= 40 ? "Third Class" : "Fail" ;
@@ -19,16 +19,24 @@ const getStemPerformers = (student)=> {
     return (((student.maths + student.science)/2) > 90)
 }
 
+const getFailed = (student) => {
+    return ((student.maths < 40 || student.english < 40 || student.hindi < 40 || student.telugu < 40 || student.social < 40 || student.science < 40));
+}
+
+const sortOrder = (a,b) => {
+    return ((a.percent < b.percent) ? 1 : (a.percent > b.percent) ? -1 : 0);
+}
+
 const main = () =>{
-    class_Ten.map(percentage_class);
+    class_Ten.map(calcPercentageClass);
     console.table(class_Ten);
     console.log("Students with more than 90 percent in Science and Maths");
     let SciMathPercent = class_Ten.filter(getStemPerformers);
     console.table(SciMathPercent);
     console.log("Students who have failed");
-    checkPromote = class_Ten.filter(student => (student.maths < 40 || student.english < 40 || student.hindi < 40 || student.telugu < 40 || student.social < 40 || student.science < 40));
-    console.table(checkPromote);
-    let sortedClassTen = (class_Ten.sort((a, b) => (a.percent < b.percent) ? 1 : -1));
+    checkPromotion = class_Ten.filter(getFailed);
+    console.table(checkPromotion);
+    let sortedClassTen = class_Ten.sort(sortOrder);
     console.log("Sorted by overall percentage")
     console.table(sortedClassTen);   
 }
