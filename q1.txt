@@ -1,0 +1,26 @@
+1. Marks obtained by the students are as follows 
+
+class_Ten =[{"roll_no":1 ,"telugu":50,"hindi":55,"english":78,""maths":49,"science":55,"social":70},
+{"roll_no":2 ,"telugu":40,"hindi":40,"english":90,""maths":99,"science":65,"social":30},
+{"roll_no":3 ,"telugu":60,"hindi":35,"english":90,""maths":99,"science":75,"social":40},
+{"roll_no":4 ,"telugu":95,"hindi":35,"english":90,""maths":99,"science":85,"social":70},
+{"roll_no":5 ,"telugu":20,"hindi":35,"english":50,""maths":39,"science":75,"social":80},
+{"roll_no":6 ,"telugu":40,"hindi":35,"english":40,""maths":29,"science":45,"social":40},
+{"roll_no":7 ,"telugu":40,"hindi":85,"english":90,""maths":99,"science":65,"social":40},
+{"roll_no":8 ,"telugu":90,"hindi":75,"english":30,""maths":39,"science":75,"social":70},
+{"roll_no":9 ,"telugu":70,"hindi":55,"english":60,""maths":99,"science":85,"social":88},
+{"roll_no":10 ,"telugu":70,"hindi":35,"english":30,""maths":49,"science":95,"social":70},
+];
+
+compute the following 
+1.Percentage of each student 
+2.Award class as >90% -> Distinction , between 70 and 90 -> First class , between 60 and 70 -> Second class , between 40 and 70 -> Third class , <40 ->Fail;
+3.Filter out the students who failed in two subjects.
+4.Filter the students who got more then 90% in Maths and science.
+5.Sort the students from higher to lower Percentages.
+6.Check if student is failed if scored below 40 marks.
+
+Condition :
+1.Use ES6 functions like :-  map ,filter,reduce,some 
+2.Use functions.
+3.Display above results in the form of table
