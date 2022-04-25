@@ -15,24 +15,24 @@
 // Sum the final price of all the lineItems.
 
 /* Data */
-var rates = {
+const rates = {
   Carrot: 10,
   Apple: 200,
   Guava: 50,
 };
 
-var discounts = {
+const discounts = {
   // values are in percentages.
   Apple: 10,
 };
 
-var taxes = {
+const taxes = {
   // values are in percentages.
   Carrot: 5,
   Guava: 10,
 };
 
-var purchases = [
+const purchases = [
   {
     item: 'Carrot',
     units: 20,
@@ -46,59 +46,46 @@ var purchases = [
     units: 1,
   },
 ];
-
 /* Functions */
-var getDiscountPercent = function (productName) {
+const getDiscountPercent = (productName) => {
   let discount = discounts[productName];
-  if (discount){
-    return discount/100;
-  }
-  else{
-    return 0;
-  }
-  
+  return(discount?(discount / 100):0);
 };
 
-var getTaxPercent = function (productName) {
- let tax = tax[productName];
- if(tax){
-   return tax/100;
- }
- else{
-   return 0;
- }
-};
+const getTaxPercent = (productName) => {
+  let tax = taxes[productName];
+  return(tax?(tax/100):0); 
+}
 
-var getUnitPrice = function (itemName) {
+const getUnitPrice = (itemName) => {
   let unitPrice = rates[itemName];
   let discountPercent = getDiscountPercent(itemName);
   let itemDiscount = unitPrice * discountPercent;
   let discountedPrice = unitPrice - itemDiscount;
   let taxPercent = getTaxPercent(itemName);
   let tax = discountedPrice * taxPercent;
-  let unitPriceowithTax = discountedPrice + tax;
+  let eachUnitPrice = discountedPrice + tax;
 
-  return unitPriceowithTax;
-  
+  return eachUnitPrice;
 };
 
-var getLineItemPrice = function (lineItem) {
+const  getLineItemPrice =(lineItem)=> {
   let itemName = lineItem['item'];
   let units = lineItem['units'];
   let unitPrice = getUnitPrice(itemName);
   let lineItemPrice = unitPrice * units;
 
   return lineItemPrice;
-  
 };
 
-var getSum = function () {
-  
+const getSum =() => {
+  let total = (purchases.map(getLineItemPrice)).reduce((a,b) => a+b);
+  return total;
 };
 
 // Do not change below this line.
 /* Main Function */
-var main = function main() {
+const main =() => {
   console.log(getSum());
 }
 

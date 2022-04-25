@@ -91,6 +91,7 @@ var getLineItemPrice = function (lineItem) {
 };
 
 var getSum = function () {
+  
   var i = 0;
   var sum = 0;
 
