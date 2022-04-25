@@ -55,42 +55,37 @@ const transactions = [
     'amount': 200,
   },
 ];
-function processTransaction(eachTransaction){
+const processTransaction = (eachTransaction)=> {
   let type = eachTransaction['type'];
   let amount = eachTransaction['amount'];
   let accountNo = eachTransaction['accountNo'];
   let balance = balances[accountNo];
-  if(type === 'withdrawal'){
-    balances[accountNo] = balance - amount;
-  }
-  else{
-    balances[accountNo] = balance + amount;
-  }
-  
-
+  balances[accountNo] = (type === "withdrawal")? balance - amount : balance + amount;
 }
-var updateBalancesWithTransactions = function() {
+const updateBalancesWithTransactions = () => {
 	// Implement transaction code here.
     transactions.map(processTransaction);
-
 };
-function accountsBalance(account) {
-  let name = account['name'];
-  let accountNo = account['accountNo'];
-  let balance = balances[accountNo];
+const accountsBalance = (account) => {
+  let accountNumber = account['accountNo'];
+  let bank = {
+  name:account['name'],
+  accountNo:account['accountNo'],
+  balance:balances[accountNumber]
+};
+return bank;
 
-  console.log(accountNo, name, balance);
 }
 
-var displayBalances = function() {
+const displayBalances = () => {
 	// Implement display code here.
-    accounts.map(accountsBalance);
-
+    let bankBalance = accounts.map(accountsBalance);
+    console.table(bankBalance);
 };
-
+      
 
 // Do not change below this line.
-var main = function() {
+const main = () => {
 	console.log('Balances before transactions');
 	displayBalances();
 	updateBalancesWithTransactions();
