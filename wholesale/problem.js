@@ -57,13 +57,71 @@ var Bills = [
   ]
 ];
 
-var PaymentsMade = [
+var paymentsMade = [
   10000,
   3000,
   7500,
 ]
 
 /* Programme */
-var PendingPayments = [
+var pendingPayments = [
   // Compute the payments for every bill and add it here.
 ];
+
+const getDiscountPercent =(productName) => {
+  let discount = Discounts[productName];
+  return(discount?(discount / 100):0);
+}
+
+const getTaxPercent = (productName) => {
+  let tax = Taxes[productName];
+  return(tax?(tax / 100):0)
+}
+const getPrice = (productName) => {
+  let price = UnitPrices[productName];
+  return(price?price:0);
+}
+
+const getUnitPrice = (itemName) => {
+  let rate = getPrice(itemName);
+  let discountPercent = getDiscountPercent(itemName);
+  let itemDiscount = rate * discountPercent;
+  let discountedPrice = rate - itemDiscount;
+  let taxPercent = getTaxPercent(itemName);
+  let tax = discountedPrice * taxPercent;
+  let eachUnitPrice = discountedPrice + tax;
+
+  return eachUnitPrice;
+};
+const getLineItemPrice = (lineItem) =>{
+  let itemName = lineItem['item'];
+  let units = lineItem['units'];
+  let unitPrice = getUnitPrice(itemName);
+  let lineItemPrice = unitPrice * units;
+
+  return lineItemPrice;
+}
+
+const calcBill = (eachBill) => {
+  let eachBillTotal = [];
+  eachBillTotal = (eachBill.map(getLineItemPrice)).reduce((a,b) => a+b);
+  return eachBillTotal;
+}
+
+const geteachBill = (Bill) => {
+  let bill = Bill.map(calcBill);
+  return bill
+}
+
+const main = () =>{
+  let billArr =  geteachBill(Bills);
+  let pendingPayments = paymentsMade.map((item,index) => billArr[index] - item);
+  let Bank = {
+    Bills: billArr,
+    Payment:paymentsMade,
+    Pending:pendingPayments
+  }
+  console.table(Bank);
+}
+
+main();
