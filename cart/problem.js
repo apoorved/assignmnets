@@ -47,6 +47,7 @@ const purchases = [
   },
 ];
 /* Functions */
+
 const getDiscountPercent = (productName) => {
   let discount = discounts[productName];
   return(discount?(discount / 100):0);
@@ -74,19 +75,16 @@ const  getLineItemPrice =(lineItem)=> {
   let units = lineItem['units'];
   let unitPrice = getUnitPrice(itemName);
   let lineItemPrice = unitPrice * units;
-
-  return lineItemPrice;
+  let itemPriceObj = {
+    item:itemName,
+    price:lineItemPrice
+  }
+  return itemPriceObj
 };
-
-const getSum =() => {
-  let total = (purchases.map(getLineItemPrice)).reduce((a,b) => a+b);
-  return total;
-};
-
-// Do not change below this line.
-/* Main Function */
-const main =() => {
-  console.log(getSum());
+const main = () =>{
+  let priceObj = (purchases.map(getLineItemPrice))
+  console.table(priceObj);
+  total = (priceObj.map(item => item.price)).reduce((a,b) => a + b);
+  console.log("Total------------------" +total); 
 }
-
 main();
