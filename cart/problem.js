@@ -82,9 +82,9 @@ const  getLineItemPrice =(lineItem)=> {
   return itemPriceObj
 };
 const main = () =>{
-  let priceObj = (purchases.map(getLineItemPrice))
-  console.table(priceObj);
-  total = (priceObj.map(item => item.price)).reduce((a,b) => a + b);
-  console.log("Total------------------" +total); 
+  let bill = (purchases.map(getLineItemPrice))
+  console.table(bill);
+  total = (bill.map(item => item.price)).reduce((a,b) => a + b);
+  console.log("Total-------------------" +total); 
 }
 main();
