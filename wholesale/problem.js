@@ -8,23 +8,24 @@
 
 // Sum the final price of all the lineItems.
 
-var UnitPrices = {
+const UnitPrices = {
   Carrot: 10,
   Apple: 200,
+  Guava:50
 };
 
-var Discounts = {
+const Discounts = {
   // values are percentages
   Apple: 10,
 };
 
-var Taxes = {
+const Taxes = {
   // values are percentages
   Carrot: 5,
   Guava: 10,
 };
 
-var Bills = [
+const Bills = [
   [
     {
       item: 'Carrot',
@@ -64,7 +65,7 @@ var paymentsMade = [
 ]
 
 /* Programme */
-var pendingPayments = [
+const pendingPayments = [
   // Compute the payments for every bill and add it here.
 ];
 
@@ -79,7 +80,7 @@ const getTaxPercent = (productName) => {
 }
 const getPrice = (productName) => {
   let price = UnitPrices[productName];
-  return(price?price:0);
+  return(price||0);
 }
 
 const getUnitPrice = (itemName) => {
@@ -98,30 +99,37 @@ const getLineItemPrice = (lineItem) =>{
   let units = lineItem['units'];
   let unitPrice = getUnitPrice(itemName);
   let lineItemPrice = unitPrice * units;
-
-  return lineItemPrice;
+  let itemPriceObj = {
+    item:itemName,
+    price:lineItemPrice
+  }
+  return itemPriceObj
 }
 
 const calcBill = (eachBill) => {
   let eachBillTotal = [];
-  eachBillTotal = (eachBill.map(getLineItemPrice)).reduce((a,b) => a+b);
-  return eachBillTotal;
+  eachBillTotal = (eachBill.map(getLineItemPrice))
+  eachBillTotal.totalPrice = (eachBillTotal.map(item => item.price)).reduce((a,b) => a + b);
+  console.table(eachBillTotal);
+  return(eachBillTotal);
 }
 
 const geteachBill = (Bill) => {
-  let bill = Bill.map(calcBill);
-  return bill
+  let billObj = Bill.map(calcBill);
+  totalBillsArr = billObj.map(item => item.totalPrice);
+  return(totalBillsArr);
 }
 
 const main = () =>{
   let billArr =  geteachBill(Bills);
-  let pendingPayments = paymentsMade.map((item,index) => billArr[index] - item);
   let Bank = {
     Bills: billArr,
-    Payment:paymentsMade,
-    Pending:pendingPayments
+     Payment:paymentsMade
   }
   console.table(Bank);
+
 }
 
 main();
+
+//let pendingPayments = paymentsMade.map((item,index) => billArr[index] - item);
