@@ -48,15 +48,9 @@ const purchases = [
 ];
 /* Functions */
 
-const getDiscountPercent = (productName) => {
-  let discount = discounts[productName];
-  return(discount?(discount / 100):0);
-};
+const getDiscountPercent = (productName) => (discounts[productName] / 100) || 0;
 
-const getTaxPercent = (productName) => {
-  let tax = taxes[productName];
-  return(tax?(tax/100):0); 
-}
+const getTaxPercent = (productName) => (taxes[productName]/100) || 0;
 
 const getUnitPrice = (itemName) => {
   let unitPrice = rates[itemName];
@@ -79,7 +73,7 @@ const  getLineItemPrice =(lineItem)=> {
     item:itemName,
     price:lineItemPrice
   }
-  return itemPriceObj
+  return itemPriceObj;
 };
 const main = () =>{
   let bill = (purchases.map(getLineItemPrice))

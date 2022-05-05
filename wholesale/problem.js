@@ -58,7 +58,7 @@ const Bills = [
   ]
 ];
 
-var paymentsMade = [
+const paymentsMade = [
   10000,
   3000,
   7500,
@@ -69,19 +69,11 @@ const pendingPayments = [
   // Compute the payments for every bill and add it here.
 ];
 
-const getDiscountPercent =(productName) => {
-  let discount = Discounts[productName];
-  return(discount?(discount / 100):0);
-}
+const getDiscountPercent =(productName) => (Discounts[productName] / 100) || 0;
 
-const getTaxPercent = (productName) => {
-  let tax = Taxes[productName];
-  return(tax?(tax / 100):0)
-}
-const getPrice = (productName) => {
-  let price = UnitPrices[productName];
-  return(price||0);
-}
+const getTaxPercent = (productName) => (Taxes[productName] / 100) || 0;
+
+const getPrice = (productName) => UnitPrices[productName] || 0;
 
 const getUnitPrice = (itemName) => {
   let rate = getPrice(itemName);
@@ -108,14 +100,14 @@ const getLineItemPrice = (lineItem) =>{
 
 const calcBill = (eachBill) => {
   let eachBillTotal = [];
-  eachBillTotal = (eachBill.map(getLineItemPrice))
+  eachBillTotal = eachBill.map(getLineItemPrice)
   eachBillTotal.totalPrice = (eachBillTotal.map(item => item.price)).reduce((a,b) => a + b);
-  console.table(eachBillTotal);
   return(eachBillTotal);
 }
 
 const geteachBill = (Bill) => {
   let billObj = Bill.map(calcBill);
+  billObj.map((bill) => console.table(bill));
   totalBillsArr = billObj.map(item => item.totalPrice);
   return(totalBillsArr);
 }
